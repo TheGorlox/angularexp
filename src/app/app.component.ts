@@ -12,15 +12,17 @@ export class AppComponent {
   weatherimg:string;
   desc:string;
   time:string;
-
+  jsonstuff:any;
   constructor(private http: HttpClient){
     // angular httprequest code from:
     // https://www.youtube.com/watch?v=SYBzE68Ee-g
     this.http.get(this.url).toPromise().then(data=>{
       console.log(data);
-      this.weatherItems=data.main.temp;
-      this.weatherimg="https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
-      this.desc=data.weather[0].main;
+      this.jsonstuff = data
+
+      this.weatherItems=this.jsonstuff.main.temp;
+      this.weatherimg="https://openweathermap.org/img/w/" + this.jsonstuff.weather[0].icon + ".png";
+      this.desc=this.jsonstuff.weather[0].main;
       let d = new Date();
       this.time =d.toLocaleTimeString();
     });
